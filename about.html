@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About - Smart Theme Website</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="hero">
+    <h1 class="hero-title">About Us</h1>
+  </div>
+
+  <nav class="top-nav" id="topNav">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-content" id="mainContent">
+    <section>
+      <h2>About Our Company</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non lectus ut nisl hendrerit aliquam. Sed nec felis at leo congue dignissim. Donec porttitor feugiat libero, at tincidunt odio volutpat a.</p>
+      <p>Vestibulum cursus dolor et lacus sagittis, id blandit erat lobortis. Integer eget eros in erat porttitor vehicula. Nam id metus et justo volutpat lacinia nec et risus. Mauris sed consequat risus. Nam sit amet elit quis risus auctor feugiat.</p>
+    </section>
+
+    <section>
+      <h2>Our Mission</h2>
+      <p>Our mission is to provide innovative and efficient solutions for web development, UI/UX design, and digital transformation. We aim to help businesses thrive in the digital landscape with cutting-edge technologies and creative strategies.</p>
+    </section>
+
+    <section>
+      <h2>Our Team</h2>
+      <p>Our team is a group of passionate professionals with diverse expertise in design, development, and digital marketing. We work together to create impactful experiences for our clients and their users.</p>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Sample Website</p>
+    </footer>
+  </div>
+
+  <script>
+    const topNav = document.getElementById('topNav');
+    const themeSwitch = document.getElementById('themeSwitch');
+    const root = document.documentElement;
+
+    // Apply theme
+    function setTheme(mode, save = false) {
+      root.setAttribute('data-theme', mode);
+      themeSwitch.checked = (mode === 'dark');
+      if (save) {
+        localStorage.setItem('themeOverride', mode);
+      }
+    }
+
+    // Theme toggle
+    themeSwitch.addEventListener('change', () => {
+      const selectedTheme = themeSwitch.checked ? 'dark' : 'light';
+      setTheme(selectedTheme, true);
+    });
+
+    // Detect preferred theme
+    function detectTheme() {
+      const userPref = localStorage.getItem('themeOverride');
+      if (userPref) {
+        setTheme(userPref);
+        return;
+      }
+
+      const now = new Date();
+      const hour = now.getHours();
+      const timeBasedTheme = (hour < 6 || hour >= 18) ? 'dark' : 'light';
+      setTheme(timeBasedTheme);
+    }
+
+    detectTheme();
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact - Smart Theme Website</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="hero">
+    <h1 class="hero-title">Contact Us</h1>
+  </div>
+
+  <nav class="top-nav" id="topNav">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-content" id="mainContent">
+    <section>
+      <h2>Get in Touch</h2>
+      <p>If you'd like to work with us, have questions, or just want to say hello, don't hesitate to reach out! You can fill out the form below or contact us directly via email.</p>
+    </section>
+
+    <section>
+      <h2>Contact Form</h2>
+      <!-- Google Form Embed -->
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfRGOD9qfrOM0KUiGOHwRG2jqC8KCYLM3csVOkups_8FwMvPw/viewform?usp=dialog" width="640" height="480" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+    </section>
+
+    <section>
+      <h2>Our Contact Information</h2>
+      <p>Email: <strong>orca.adul@gmail.com</strong></p>
+      <p>Phone: <strong>+66 0625030555</strong></p>
+      <p>Address: <strong>107/10 Moo.1 Samet, Muang Chonburi, Thailand 20000</strong></p>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Sample Website</p>
+    </footer>
+  </div>
+
+  <script>
+    const topNav = document.getElementById('topNav');
+    const themeSwitch = document.getElementById('themeSwitch');
+    const root = document.documentElement;
+
+    // Apply theme
+    function setTheme(mode, save = false) {
+      root.setAttribute('data-theme', mode);
+      themeSwitch.checked = (mode === 'dark');
+      if (save) {
+        localStorage.setItem('themeOverride', mode);
+      }
+    }
+
+    // Theme toggle
+    themeSwitch.addEventListener('change', () => {
+      const selectedTheme = themeSwitch.checked ? 'dark' : 'light';
+      setTheme(selectedTheme, true);
+    });
+
+    // Detect preferred theme
+    function detectTheme() {
+      const userPref = localStorage.getItem('themeOverride');
+      if (userPref) {
+        setTheme(userPref);
+        return;
+      }
+
+      const now = new Date();
+      const hour = now.getHours();
+      const timeBasedTheme = (hour < 6 || hour >= 18) ? 'dark' : 'light';
+      setTheme(timeBasedTheme);
+    }
+
+    detectTheme();
+  </script>
+</body>
+</html>

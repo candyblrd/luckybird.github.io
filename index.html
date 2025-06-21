@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Theme Website</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="hero">
+    <h1 class="hero-title">Welcome to My Website</h1>
+    <button class="hero-button">Explore</button>
+  </div>
+
+  <nav class="top-nav" id="topNav">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li class="toggle-container">
+        <button class="toggle-btn" id="toggleBtn">☰</button>
+      </li>
+      <li class="menu-item"><a href="index.html">Home</a></li>
+      <li class="menu-item"><a href="about.html">About</a></li>
+      <li class="menu-item"><a href="services.html">Services</a></li>
+      <li class="menu-item"><a href="contact.html">Contact</a></li>
+      <li class="menu-item">
+        <label class="switch">
+          <input type="checkbox" id="themeSwitch">
+          <span class="slider"></span>
+        </label>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main-content" id="mainContent">
+    <section>
+      <h2>About</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non lectus ut nisl hendrerit aliquam. Sed nec felis at leo congue dignissim. Donec porttitor feugiat libero, at tincidunt odio volutpat a.</p>
+      <p>Vestibulum cursus dolor et lacus sagittis, id blandit erat lobortis. Integer eget eros in erat porttitor vehicula.</p>
+    </section>
+
+    <section>
+      <h2>Services</h2>
+      <p>We offer a variety of services tailored to your needs. From web development to UI/UX design, our team provides solutions that are efficient, modern, and responsive.</p>
+      <ul>
+        <li>Website Development</li>
+        <li>Mobile App Design</li>
+        <li>UI/UX Consulting</li>
+        <li>Performance Optimization</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>If you’d like to work with us, get in touch using the form below or send an email to <strong>contact@example.com</strong>.</p>
+      <form>
+        <label for="name">Name:</label><br/>
+        <input type="text" id="name" name="name"><br/><br/>
+
+        <label for="email">Email:</label><br/>
+        <input type="email" id="email" name="email"><br/><br/>
+
+        <label for="message">Message:</label><br/>
+        <textarea id="message" name="message" rows="4" cols="50"></textarea><br/><br/>
+
+        <button type="submit">Send</button>
+      </form>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Sample Website</p>
+    </footer>
+  </div>
+
+  <script>
+    const topNav = document.getElementById('topNav');
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleBtn');
+    const themeSwitch = document.getElementById('themeSwitch');
+    const root = document.documentElement;
+
+    // Sidebar toggle
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+    });
+
+    // Scroll collapse
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      if (scrollY > window.innerHeight) {
+        sidebar.classList.add('show-sidebar');
+        topNav.classList.add('collapsed');
+      } else {
+        sidebar.classList.remove('show-sidebar');
+        topNav.classList.remove('collapsed');
+      }
+    });
+
+    // Apply theme
+    function setTheme(mode, save = false) {
+      root.setAttribute('data-theme', mode);
+      themeSwitch.checked = (mode === 'dark');
+      if (save) {
+        localStorage.setItem('themeOverride', mode);
+      }
+    }
+
+    // Theme toggle
+    themeSwitch.addEventListener('change', () => {
+      const selectedTheme = themeSwitch.checked ? 'dark' : 'light';
+      setTheme(selectedTheme, true);
+    });
+
+    // Detect preferred theme
+    function detectTheme() {
+      const userPref = localStorage.getItem('themeOverride');
+      if (userPref) {
+        setTheme(userPref);
+        return;
+      }
+
+      const now = new Date();
+      const hour = now.getHours();
+      const timeBasedTheme = (hour < 6 || hour >= 18) ? 'dark' : 'light';
+      setTheme(timeBasedTheme);
+    }
+
+    detectTheme();
+  </script>
+</body>
+</html>

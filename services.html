@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Services - Smart Theme Website</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="hero">
+    <h1 class="hero-title">Our Services</h1>
+  </div>
+
+  <nav class="top-nav" id="topNav">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-content" id="mainContent">
+    <section>
+      <h2>Website Development</h2>
+      <p>We provide high-quality, responsive, and modern website development services. Whether it's a simple blog or a complex e-commerce platform, we have the skills and experience to bring your vision to life.</p>
+    </section>
+
+    <section>
+      <h2>Mobile App Design</h2>
+      <p>Our team specializes in designing intuitive and visually appealing mobile applications. From UI/UX design to development, we deliver solutions that engage users and enhance experiences on both iOS and Android platforms.</p>
+    </section>
+
+    <section>
+      <h2>UI/UX Consulting</h2>
+      <p>We offer expert consulting services to help you design and optimize your products for better usability and user experience. Our team works closely with you to create user-centric designs that meet your business goals.</p>
+    </section>
+
+    <section>
+      <h2>Performance Optimization</h2>
+      <p>In the digital age, performance is key. Our team specializes in optimizing websites and applications for speed, efficiency, and scalability. We make sure that your users have a seamless and fast experience, no matter the platform or device.</p>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Sample Website</p>
+    </footer>
+  </div>
+
+  <script>
+    const topNav = document.getElementById('topNav');
+    const themeSwitch = document.getElementById('themeSwitch');
+    const root = document.documentElement;
+
+    // Apply theme
+    function setTheme(mode, save = false) {
+      root.setAttribute('data-theme', mode);
+      themeSwitch.checked = (mode === 'dark');
+      if (save) {
+        localStorage.setItem('themeOverride', mode);
+      }
+    }
+
+    // Theme toggle
+    themeSwitch.addEventListener('change', () => {
+      const selectedTheme = themeSwitch.checked ? 'dark' : 'light';
+      setTheme(selectedTheme, true);
+    });
+
+    // Detect preferred theme
+    function detectTheme() {
+      const userPref = localStorage.getItem('themeOverride');
+      if (userPref) {
+        setTheme(userPref);
+        return;
+      }
+
+      const now = new Date();
+      const hour = now.getHours();
+      const timeBasedTheme = (hour < 6 || hour >= 18) ? 'dark' : 'light';
+      setTheme(timeBasedTheme);
+    }
+
+    detectTheme();
+  </script>
+</body>
+</html>
